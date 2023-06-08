@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/operations/operations';
 import { selectUserData } from '../../redux/selectors/selectors';
-import { TextField, Button, Box, Slide } from '@mui/material';
+import { Alert } from '@mui/material';
+import { FormBtn, FormTitle, FormWrapper, FormInput } from './Register.styled';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -37,59 +38,57 @@ const Register = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
-      <Slide direction="right" in={!userData.isLoggedIn} timeout={500}>
-        <form
-          onSubmit={handleSubmit}
-          style={{ border: '1px solid #ccc', padding: '20px' }}
-        >
-          <Box display="flex" flexDirection="column" gap={3}>
-            <h2>Register</h2>
-            <TextField
-              type="email"
-              name="email"
-              label="Email"
-              value={email}
-              onChange={handleChange}
-              required
-              variant="outlined"
-              error={submitted && userData.isError}
-              helperText={
-                submitted && userData.isError ? 'Incorrect entry.' : ''
-              }
-            />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '10px',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+        padding: '20px',
+        width: '400px',
+      }}
+    >
+      <form onSubmit={handleSubmit}>
+        <FormWrapper>
+          <FormTitle>Register</FormTitle>
+          <FormInput
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            required
+          />
+          {submitted && userData.isError && (
+            <Alert severity="error">Incorrect entry</Alert>
+          )}
 
-            <TextField
-              type="text"
-              name="name"
-              label="Name"
-              value={name}
-              onChange={handleChange}
-              required
-              variant="outlined"
-            />
+          <FormInput
+            type="text"
+            name="name"
+            label="Name"
+            value={name}
+            onChange={handleChange}
+            required
+          />
 
-            <TextField
-              type="password"
-              name="password"
-              label="Password"
-              value={password}
-              onChange={handleChange}
-              required
-              variant="outlined"
-              error={submitted && userData.isError}
-              helperText={
-                submitted && userData.isError ? 'Incorrect entry.' : ''
-              }
-            />
+          <FormInput
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            required
+          />
+          {submitted && userData.isError && (
+            <Alert severity="error">Incorrect entry</Alert>
+          )}
 
-            <Button type="submit" variant="contained" color="primary">
-              Register
-            </Button>
-          </Box>
-        </form>
-      </Slide>
-    </Box>
+          <FormBtn type="submit">Register</FormBtn>
+        </FormWrapper>
+      </form>
+    </div>
   );
 };
 

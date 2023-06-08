@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://NikitaDima.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.19",
+    "@chakra-ui/react": "^2.7.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
@@ -13,6 +15,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "framer-motion": "^10.12.16",
     "private-route-react": "^1.1.12",
     "react": "^18.1.0",
     "react-bootstrap": "^2.7.4",

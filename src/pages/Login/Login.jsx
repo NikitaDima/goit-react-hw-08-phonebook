@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/operations/operations';
-import { TextField, Button, Box, Slide } from '@mui/material';
+import { Alert } from '@mui/material';
 import { selectUserData } from '../../redux/selectors/selectors';
+import {
+  FormBtn,
+  FormLogin,
+  FormTitle,
+  FormInput,
+  FormWrapper,
+} from './Login.styled';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -28,50 +35,49 @@ const Login = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
-      <Slide direction="left" in={!userData.isLoggedIn} timeout={500}>
-        <form
-          onSubmit={handleSubmit}
-          style={{ border: '1px solid #ccc', padding: '20px' }}
-        >
-          <Box display="flex" flexDirection="column" gap={3}>
-            <h2>Login</h2>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '10px',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+        padding: '20px',
+        width: '400px',
+      }}
+    >
+      <FormLogin onSubmit={handleSubmit}>
+        <FormWrapper>
+          <FormTitle>Login</FormTitle>
 
-            <TextField
-              type="email"
-              name="email"
-              label="Email"
-              value={email}
-              onChange={handleChange}
-              required
-              variant="outlined"
-              error={submitted && userData.isError}
-              helperText={
-                submitted && userData.isError ? 'Incorrect entry.' : ''
-              }
-            />
+          <FormInput
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            required
+          />
+          {submitted && userData.isError && (
+            <Alert severity="error">Incorrect entry</Alert>
+          )}
 
-            <TextField
-              type="password"
-              name="password"
-              label="Password"
-              value={password}
-              onChange={handleChange}
-              required
-              variant="outlined"
-              error={submitted && userData.isError}
-              helperText={
-                submitted && userData.isError ? 'Incorrect entry.' : ''
-              }
-            />
+          <FormInput
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            required
+          />
+          {submitted && userData.isError && (
+            <Alert severity="error">Incorrect entry</Alert>
+          )}
 
-            <Button type="submit" variant="contained" color="primary">
-              Login
-            </Button>
-          </Box>
-        </form>
-      </Slide>
-    </Box>
+          <FormBtn type="submit">Login</FormBtn>
+        </FormWrapper>
+      </FormLogin>
+    </div>
   );
 };
 

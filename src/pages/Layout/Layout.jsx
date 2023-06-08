@@ -2,8 +2,7 @@ import React from 'react';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation';
-import { Box } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Spiner } from './Layout.styled';
 
 const Layout = () => {
   return (
@@ -12,17 +11,17 @@ const Layout = () => {
         <Navigation />
       </header>
       <main>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          paddingLeft={4}
-          marginTop={5}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
         >
-          <Suspense fallback={<CircularProgress size={50} color="inherit" />}>
+          <Suspense fallback={<Spiner />}>
             <Outlet />
           </Suspense>
-        </Box>
+        </div>
       </main>
     </>
   );
