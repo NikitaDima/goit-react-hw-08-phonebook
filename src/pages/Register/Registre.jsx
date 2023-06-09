@@ -42,13 +42,15 @@ const Register = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
         gap: '10px',
         border: '1px solid #ccc',
         borderRadius: '4px',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
         padding: '20px',
-        width: '400px',
+        width: '300px',
+        height: '300px',
       }}
     >
       <form onSubmit={handleSubmit}>
@@ -60,18 +62,21 @@ const Register = () => {
             value={email}
             onChange={handleChange}
             required
+            placeholder="email"
           />
           {submitted && userData.isError && (
             <Alert severity="error">Incorrect entry</Alert>
           )}
 
           <FormInput
+            style={{ borderRadius: '15px' }}
             type="text"
             name="name"
             label="Name"
             value={name}
             onChange={handleChange}
             required
+            placeholder="name"
           />
 
           <FormInput
@@ -80,6 +85,7 @@ const Register = () => {
             value={password}
             onChange={handleChange}
             required
+            placeholder="password"
           />
           {submitted && userData.isError && (
             <Alert severity="error">Incorrect entry</Alert>

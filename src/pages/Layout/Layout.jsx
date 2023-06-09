@@ -16,6 +16,7 @@ const Layout = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <Suspense fallback={<Spiner />}>

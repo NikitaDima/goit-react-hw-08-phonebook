@@ -1,32 +1,20 @@
-import React, { useState, forwardRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from '../../redux/operations/operations';
 
-import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+
 import { getTasks } from '../../redux/selectors/selectors';
+import {
+  FormAddBox,
+  FormAddBtn,
+  FormAddTitle,
+  Spiner,
+} from './ContactForm.styled';
 
 const ContactForm = () => {
-  const [open, setOpen] = useState(false);
-
   const contacts = useSelector(state => state.contacts.items);
   const contactsData = useSelector(getTasks);
   const dispatch = useDispatch();
-
-  const Alert = forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -39,7 +27,7 @@ const ContactForm = () => {
     }
 
     dispatch(addContact(newContact));
-    setOpen(true);
+
     e.target.reset();
   };
 
@@ -50,45 +38,39 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Contacts</h2>
-      <TextField
-        id="name"
-        label="Name"
-        variant="outlined"
-        type="text"
-        name="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
-      />
-      <TextField
-        id="number"
-        label="Number"
-        variant="outlined"
-        type="tel"
-        name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required
-      />
+    <FormAddBox>
+      <form onSubmit={handleSubmit}>
+        <FormAddTitle>Contacts</FormAddTitle>
+        <TextField
+          id="name"
+          label="Name"
+          variant="standard"
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+        />
+        <TextField
+          id="number"
+          label="Number"
+          variant="standard"
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+        />
 
-      {contactsData.operation === 'add' ? (
-        <Button type="submit" variant="contained">
-          <CircularProgress size={25} color="inherit" />
-        </Button>
-      ) : (
-        <Button type="submit" variant="contained">
-          Add contact
-        </Button>
-      )}
-
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          Contact added successfully!
-        </Alert>
-      </Snackbar>
-    </form>
+        {contactsData.operation === 'add' ? (
+          <FormAddBtn>
+            <Spiner />
+          </FormAddBtn>
+        ) : (
+          <FormAddBtn>Add contact</FormAddBtn>
+        )}
+      </form>
+    </FormAddBox>
   );
 };
 

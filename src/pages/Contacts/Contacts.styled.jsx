@@ -16,3 +16,13 @@ animation: spin 1s ease-in-out infinite;
 100% {
   transform: rotate(360deg);
 }`;
+
+export const ContactsWrapper = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
+export const ContactsTitle = styled.h1`
+  text-align: center;
+`;

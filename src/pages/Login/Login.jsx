@@ -39,13 +39,15 @@ const Login = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
         gap: '10px',
         border: '1px solid #ccc',
         borderRadius: '4px',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
         padding: '20px',
-        width: '400px',
+        width: '300px',
+        height: '300px',
       }}
     >
       <FormLogin onSubmit={handleSubmit}>
@@ -57,6 +59,7 @@ const Login = () => {
             name="email"
             value={email}
             onChange={handleChange}
+            placeholder="email"
             required
           />
           {submitted && userData.isError && (
@@ -68,6 +71,7 @@ const Login = () => {
             name="password"
             value={password}
             onChange={handleChange}
+            placeholder="password"
             required
           />
           {submitted && userData.isError && (

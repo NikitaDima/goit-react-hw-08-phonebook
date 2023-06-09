@@ -34,10 +34,18 @@ export const FormInput = styled.input`
 `;
 
 export const FormBtn = styled.button`
-  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
-  background-color: #ccc;
   border: none;
   border-radius: 4px;
+  background-color: #333;
+  color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;

@@ -1,55 +1,86 @@
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectUserData } from '../../redux/selectors/selectors';
+import { NavLink } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+  
+} from '@mui/material';
+import { Menu as MenuIcon } from '@mui/icons-material';
 import UserMenu from '../userMenu/UserMenu';
-import { AppBar, Toolbar, Typography, Button, Grid } from '@mui/material';
+import { selectUserData } from '../../redux/selectors/selectors';
 
 const Navigation = () => {
   const isLoggedIn = useSelector(selectUserData);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      style={{ backgroundColor: '#333', boxShadow: 'none' }}
+    >
       <Toolbar>
-        <Grid container alignItems="center">
-          <Grid item>
-            <Button color="inherit" component={NavLink} to="/">
-              Home
-            </Button>
-            {isLoggedIn.isLoggedIn && (
-              <Button color="inherit" component={NavLink} to="/contacts">
-                Contacts
-              </Button>
-            )}
-          </Grid>
-          <Grid item sx={{ flexGrow: 1 }}>
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{ textAlign: 'center' }}
+        <IconButton color="inherit" onClick={handleMenuOpen}>
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <MenuItem component={NavLink} to="/" onClick={handleMenuClose}>
+            Home
+          </MenuItem>
+          {isLoggedIn.isLoggedIn ? (
+            <MenuItem
+              component={NavLink}
+              to="/contacts"
+              onClick={handleMenuClose}
             >
-              Phonebook
-            </Typography>
-          </Grid>
-          <Grid item>
-            {isLoggedIn.isLoggedIn ? (
-              <>
-                <Typography variant="subtitle1" component="div">
-                  {isLoggedIn.username}
-                </Typography>
-                <UserMenu />
-              </>
-            ) : (
-              <>
-                <Button color="inherit" component={NavLink} to="/register">
-                  Register
-                </Button>
-                <Button color="inherit" component={NavLink} to="/login">
-                  Login
-                </Button>
-              </>
-            )}
-          </Grid>
-        </Grid>
+              Contacts
+            </MenuItem>
+          ) : (
+            <>
+              <MenuItem
+                component={NavLink}
+                to="/register"
+                onClick={handleMenuClose}
+              >
+                Register
+              </MenuItem>
+
+              <MenuItem
+                component={NavLink}
+                to="/login"
+                onClick={handleMenuClose}
+              >
+                Login
+              </MenuItem>
+            </>
+          )}
+        </Menu>
+        <UserMenu />
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, textAlign: 'right' }}
+        >
+          Phonebook
+        </Typography>
       </Toolbar>
     </AppBar>
   );

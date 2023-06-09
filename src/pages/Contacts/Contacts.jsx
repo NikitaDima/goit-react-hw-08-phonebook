@@ -5,7 +5,7 @@ import ContactForm from '../../components/contactForm/ContactForm';
 import Filter from '../../components/filter/Filter';
 import ContactsList from '../../components/contactList/ContactList';
 
-import { Spiner } from './Contacts.styled';
+import { ContactsTitle, ContactsWrapper, Spiner } from './Contacts.styled';
 
 import { getTasks } from '../../redux/selectors/selectors';
 
@@ -19,14 +19,14 @@ const Contacts = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>Phonebook</h1>
-      <div>
+    <ContactsWrapper>
+      <ContactsTitle>Phonebook</ContactsTitle>
+      <div style={{ marginBottom: '20px' }}>
         <ContactForm />
       </div>
       <div>
         {contactsData.operation === 'fatch' ? (
-          <div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Spiner />
           </div>
         ) : (
@@ -36,7 +36,7 @@ const Contacts = () => {
           </>
         )}
       </div>
-    </div>
+    </ContactsWrapper>
   );
 };
 

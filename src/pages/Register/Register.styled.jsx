@@ -23,19 +23,28 @@ export const FormTitle = styled.h2`
 export const FormInput = styled.input`
   width: 300px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 4px;
   width: 100%;
+  border-radius: 15px;
   &:hover {
     background-color: #f5f5f5;
   }
 `;
 
 export const FormBtn = styled.button`
-  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
-  background-color: #ccc;
   border: none;
   border-radius: 4px;
+  background-color: #333;
+  color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
